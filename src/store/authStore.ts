@@ -19,8 +19,8 @@ export const useAuthStore = create<AuthState>()((set) => ({
     login: async (credentials) => {
         set({ isLoading: true });
         try {
-            // API Dokumentatsiyasiga ko'ra: users/login/
-            const result = await apiFetch('users/login', {
+            // users/login emas, users/login/ deb yozing
+            const result = await apiFetch('users/login/', {
                 method: 'POST',
                 body: JSON.stringify(credentials),
             });
