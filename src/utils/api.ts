@@ -7,17 +7,24 @@ export const getTokens = () => ({
 
 const getFullUrl = (endpoint: string) => {
     const cleanBase = BASE_URL.replace(/\/+$/, "");
-    // endpoint boshidagi va oxiridagi slash-larni olib tashla, keyin bitta '/' qo'sh
     const cleanEndpoint = endpoint.replace(/^\/+|\/+$/g, "");
     return `${cleanBase}/${cleanEndpoint}/`;
 };
 
+// Cookie dan CSRF token olish
+const getCsrfToken = (): string => {
+    const match = document.cookie.match(/csrftoken=([^;]+)/);
+    return match ? match[1] : "";
+};
+
+// 1. Oddiy JSON so'rovlar uchun
 export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
     const { access } = getTokens();
     const fullUrl = getFullUrl(endpoint);
 
     const headers: HeadersInit = {
         "Content-Type": "application/json",
+        "X-CSRFToken": getCsrfToken(),
         ...(access && { Authorization: `Bearer ${access}` }),
         ...options.headers,
     };
@@ -32,6 +39,7 @@ export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
     return response.json();
 };
 
+// 2. Fayl yuklash uchun
 export const apiUpload = async (endpoint: string, formData: FormData) => {
     const { access } = getTokens();
     const fullUrl = getFullUrl(endpoint);
@@ -39,6 +47,7 @@ export const apiUpload = async (endpoint: string, formData: FormData) => {
     const response = await fetch(fullUrl, {
         method: "POST",
         headers: {
+            "X-CSRFToken": getCsrfToken(),
             ...(access && { Authorization: `Bearer ${access}` }),
         },
         body: formData,
