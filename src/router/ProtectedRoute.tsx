@@ -1,14 +1,14 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 interface Props {
-    allowedRoles: string[]; 
+    allowedRoles: string[];
 }
 
 const ProtectedRoute = ({ allowedRoles }: Props) => {
     const location = useLocation();
 
     const token = localStorage.getItem('access_token');
-    const userRole = localStorage.getItem('role');
+    const userRole = localStorage.getItem('user_role');
 
     if (!token) {
         return <Navigate to="/login" state={{ from: location }} replace />;
