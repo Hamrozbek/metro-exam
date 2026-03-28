@@ -240,7 +240,7 @@ const ManagerHomeSection: React.FC = () => {
                     ) : (
                         filteredEmployees
                             .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-                            .map((emp: any, idx: number) => (
+                            .map((emp: any, _idx: number) => (
                                 <MobileCard key={emp.id} record={emp} />
                             ))
                     )}

@@ -101,7 +101,7 @@ const ManagersSection: React.FC = () => {
   );
 
   // --- MOBILE CARD ---
-  const MobileCard = ({ record, index }: { record: any; index: number }) => (
+  const MobileCard = ({ record }: { record: any; index: number }) => (
     <div className="bg-[#1e293b]/40 border border-slate-800/60 rounded-2xl p-4 mb-3">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">

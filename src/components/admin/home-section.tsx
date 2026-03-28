@@ -84,7 +84,7 @@ const HomeSection: React.FC = () => {
   ];
 
   // Mobile card view for employees
-  const MobileCard = ({ record, index }: { record: any; index: number }) => (
+  const MobileCard = ({ record }: { record: any; index: number }) => (
     <div
       className="bg-[#1e293b]/40 border border-slate-800/60 rounded-2xl p-4 mb-3 cursor-pointer hover:border-blue-500/40 transition-all"
       onClick={() => handleOpenModal(record)}
